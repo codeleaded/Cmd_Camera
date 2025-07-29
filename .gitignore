@@ -1,0 +1,27 @@
+# Build-Artefakte
+*.o
+*.out
+*.exe
+*.a
+*.so
+
+# Backup-Dateien
+*~
+*.bak
+*.swp
+
+# Build-Ordner
+/build/
+bin/
+obj/
+
+# Editor/IDE-Dateien
+.vscode/
+*.log
+*.DS_Store
+
+# CMake (optional)
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+
