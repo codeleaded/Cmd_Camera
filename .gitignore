@@ -10,11 +10,6 @@
 *.bak
 *.swp
 
-# Build-Ordner
-/build/
-bin/
-obj/
-
 # Editor/IDE-Dateien
 .vscode/
 *.log
