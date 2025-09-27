@@ -1,6 +1,6 @@
 CC = gcc
 #CFLAGS = -Wall -Wextra -std=c11 -O2 -g -mavx2
-CFLAGS = -O2 -mavx2
+CFLAGS = -O2 -mavx2 -std=gnu17
 INCLUDES = -Isrc
 LDFLAGS = -lm -lX11 -lpng
 
