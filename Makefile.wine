@@ -1,0 +1,38 @@
+# === Makefile.wine ===
+
+CC = x86_64-w64-mingw32-gcc
+CFLAGS = -O2 -mavx2 -std=gnu17
+INCLUDES = -Isrc
+LDFLAGS = -lm
+SRC_DIR = ./src
+BUILD_DIR = ./build
+TARGET = $(BUILD_DIR)/Main.exe
+
+SRCS = $(wildcard $(SRC_DIR)/*.c)
+OBJS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
+
+all: $(BUILD_DIR) $(TARGET)
+
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
+
+$(TARGET): $(SRCS)
+	$(CC) $(CFLAGS) $(INCLUDES) $(SRCS) -o $(TARGET) $(LDFLAGS)
+
+alldebug: 
+	$(CC) -g $(CFLAGS) $(INCLUDES) $(SRC_DIR)/Main.c -o $(TARGET) $(LDFLAGS) 
+
+debug:
+	WINEPREFIX=~/wine64 WINEARCH=win64 winedbg $(TARGET)
+
+run: $(TARGET)
+	WINEPREFIX=~/wine64 WINEARCH=win64 wine $(TARGET)
+
+clean:
+	rm -f $(BUILD_DIR)/*
+
+dg: clean alldebug debug
+
+do: clean all run
+
+# === Makefile.wine ===
