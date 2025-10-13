@@ -1,0 +1,30 @@
+# === Makefile.windows ===
+
+CC = gcc
+CFLAGS = -O2 -mavx2 -std=gnu17
+INCLUDES = -Isrc
+LDFLAGS = -lm
+SRC_DIR = src
+BUILD_DIR = build
+TARGET = $(BUILD_DIR)/Main.exe
+
+SRCS = $(wildcard $(SRC_DIR)/*.c)
+OBJS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
+
+all: $(BUILD_DIR) $(TARGET)
+
+$(BUILD_DIR):
+	if not exist "$(BUILD_DIR)" mkdir "$(BUILD_DIR)"
+
+$(TARGET): $(SRCS)
+	$(CC) $(CFLAGS) $(INCLUDES) $(SRCS) -o $(TARGET) $(LDFLAGS)
+
+run:
+	$(TARGET)
+
+clean:
+	if exist "$(BUILD_DIR)" del /Q "$(BUILD_DIR)\*"
+
+do: clean all run
+
+# === Makefile.windows ===
