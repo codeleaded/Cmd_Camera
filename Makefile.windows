@@ -19,7 +19,7 @@ $(BUILD_DIR):
 $(TARGET): $(SRCS)
 	$(CC) $(CFLAGS) $(INCLUDES) $(SRCS) -o $(TARGET) $(LDFLAGS)
 
-run:
+exe:
 	$(TARGET)
 
 clean:

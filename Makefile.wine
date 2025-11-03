@@ -25,7 +25,7 @@ alldebug:
 debug:
 	WINEPREFIX=~/wine64 WINEARCH=win64 winedbg $(TARGET)
 
-run: $(TARGET)
+exe: $(TARGET)
 	WINEPREFIX=~/wine64 WINEARCH=win64 wine $(TARGET)
 
 clean:
