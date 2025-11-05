@@ -33,6 +33,6 @@ clean:
 
 dg: clean alldebug debug
 
-do: clean all run
+do: clean all exe
 
 # === Makefile.wine ===
