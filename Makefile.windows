@@ -25,6 +25,6 @@ exe:
 clean:
 	if exist "$(BUILD_DIR)" del /Q "$(BUILD_DIR)\*"
 
-do: clean all run
+do: clean all exe
 
 # === Makefile.windows ===
