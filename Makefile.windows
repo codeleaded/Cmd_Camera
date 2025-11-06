@@ -1,7 +1,7 @@
 # === Makefile.windows ===
 
 CC = gcc
-CFLAGS = -O2 -mavx2 -std=gnu17
+CFLAGS = -O0 -mavx2 -std=gnu17
 INCLUDES = -Isrc
 LDFLAGS = -lm
 SRC_DIR = src
