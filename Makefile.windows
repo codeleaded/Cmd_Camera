@@ -1,30 +1,52 @@
 # === Makefile.windows ===
 
+
+
 CC = gcc
 CFLAGS = -O0 -mavx2 -std=gnu17
 INCLUDES = -Isrc
 LDFLAGS = -lm
+
 SRC_DIR = src
 BUILD_DIR = build
 TARGET = $(BUILD_DIR)/Main.exe
 
-SRCS = $(wildcard $(SRC_DIR)/*.c)
-OBJS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
+# -----------------------------
+# Shell-Erkennung
+# -----------------------------
+ifeq ($(findstring cmd,$(SHELL)),cmd)
+    MKDIR_CMD = if not exist "$(BUILD_DIR)" mkdir "$(BUILD_DIR)"
+    CLEAN_CMD = if exist "$(BUILD_DIR)" del /Q "$(BUILD_DIR)\*" & if exist "$(TARGET)" del "$(TARGET)"
+    RUN_CMD   = $(TARGET)
+else
+    MKDIR_CMD = mkdir -p $(BUILD_DIR)
+    CLEAN_CMD = rm -f $(BUILD_DIR)/*.o $(TARGET)
+    RUN_CMD   = ./$(TARGET)
+endif
 
-all: $(BUILD_DIR) $(TARGET)
+# -----------------------------
+# Targets
+# -----------------------------
 
 $(BUILD_DIR):
-	if not exist "$(BUILD_DIR)" mkdir "$(BUILD_DIR)"
+	$(MKDIR_CMD)
 
-$(TARGET): $(SRCS)
-	$(CC) $(CFLAGS) $(INCLUDES) $(SRCS) -o $(TARGET) $(LDFLAGS)
+all: $(BUILD_DIR)
+	$(CC) $(CFLAGS) $(INCLUDES) $(SRC_DIR)/*.c -o $(TARGET) $(LDFLAGS)
+
+alldebug: $(BUILD_DIR)
+	$(CC) -g $(CFLAGS) $(INCLUDES) $(SRC_DIR)/*.c -o $(TARGET) $(LDFLAGS)
 
 exe:
-	$(TARGET)
+	$(RUN_CMD)
+
+debug:
+	gdb $(TARGET)
 
 clean:
-	if exist "$(BUILD_DIR)" del /Q "$(BUILD_DIR)\*"
+	$(CLEAN_CMD)
 
 do: clean all exe
+dg: clean alldebug debug
 
 # === Makefile.windows ===
