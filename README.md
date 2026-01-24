@@ -20,7 +20,7 @@ How to install and set up your project:
 
 ```bash
 # Example installation commands
-git clone https://github.com/codeleaded/<repo>.git
+git clone https://github.com/C-Reaper/<repo>.git
 cd <repo>
 # just build
 make all
